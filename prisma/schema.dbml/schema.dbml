@@ -1,0 +1,55 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table User {
+  id Int [pk, increment]
+  name String [not null]
+  email String [unique, not null]
+  passwordHash String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  projects Project [not null]
+}
+
+Table Project {
+  id Int [pk, increment]
+  userId Int [not null]
+  user User [not null]
+  name String [not null]
+  description String
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  transactions Transaction [not null]
+}
+
+Table Transaction {
+  id Int [pk, increment]
+  projectId Int [not null]
+  project Project [not null]
+  description String
+  amount Decimal [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  date DateTime [not null]
+  categoryId Int [not null]
+  category Category [not null]
+}
+
+Table Category {
+  id Int [pk, increment]
+  name String [not null]
+  type TransactionType [not null]
+  transactions Transaction [not null]
+}
+
+Enum TransactionType {
+  INCOME
+  EXPENSE
+}
+
+Ref: Project.userId > User.id
+
+Ref: Transaction.projectId > Project.id
+
+Ref: Transaction.categoryId > Category.id
