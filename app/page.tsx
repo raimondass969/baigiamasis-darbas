@@ -1,7 +1,5 @@
-'use client';
 import Description from '@/components/landing/MainDescription';
-import AuthCardChanger from '@/components/Auth/AuthCardsChanger';
-import ThemeToggle from '@/components/theme/theme-toggle';
+import AuthCardChanger from '@/components/auth/AuthCardsChanger';
 
 export default function Page() {
 	return (

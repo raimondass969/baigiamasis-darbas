@@ -2,6 +2,7 @@
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import FormInput from '../ui/FormInput';
 
 export default function LoginForm() {
 	const router = useRouter();
@@ -54,43 +55,23 @@ export default function LoginForm() {
 				onSubmit={handleSubmit}
 				className="flex flex-col gap-4 w-full"
 			>
-				{/* label for email */}
-				<div className="flex flex-col gap-1.5">
-					<label
-						htmlFor="loginEmail"
-						className="text-sm text-slate-300"
-					>
-						El paštas
-					</label>
+				{/* loginForm email */}
+				<FormInput
+					id="loginEmail"
+					name="loginEmail"
+					label="El paštas"
+					placeholder="Iveskite savo el pašta"
+				/>
 
-					{/* loginForm email */}
-					<input
-						id="loginEmail"
-						type="text"
-						name="loginEmail"
-						placeholder="vardas@pavyzdis.lt"
-						className="px-4 py-2 rounded-2xl  bg-slate-50 text-black focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-150 ease-out dark:bg-slate-900 dark:text-white dark:border-blue-500"
-					/>
-				</div>
+				{/* loginForm password */}
 
-				{/* label for password */}
-				<div className="flex flex-col gap-1.5">
-					<label
-						htmlFor="loginPassword"
-						className="text-sm text-slate-300"
-					>
-						Slaptažodis
-					</label>
+				<FormInput
+					id="loginPassword"
+					name="loginPassword"
+					label="Slaptazodis"
+					placeholder="Iveskite savo slaptazodi"
+				/>
 
-					{/* loginForm password */}
-					<input
-						id="loginPassword"
-						type="password"
-						name="loginPassword"
-						placeholder="Jūsų slaptažodis"
-						className="px-4 py-2 rounded-2xl bg-slate-50 text-black focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-150 ease-out dark:bg-slate-900 dark:text-white dark:border-blue-500"
-					/>
-				</div>
 				<div className="flex items-center justify-between">
 					<label className="flex items-center gap-2 cursor-pointer">
 						<input type="checkbox" />
