@@ -67,6 +67,7 @@ export default function LoginForm() {
 
 				<FormInput
 					id="loginPassword"
+					type="password"
 					name="loginPassword"
 					label="Slaptazodis"
 					placeholder="Iveskite savo slaptazodi"

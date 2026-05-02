@@ -90,6 +90,7 @@ export default function RegisterForm() {
 
 				<FormInput
 					id="registerPassword"
+					type="password"
 					name="registerPassword"
 					label="Susikurkite slaptažodį"
 					placeholder="Mažiausiai 8 simboliai"
@@ -97,6 +98,7 @@ export default function RegisterForm() {
 				{/* Registracijos pakartotinas slaptazodis */}
 				<FormInput
 					id="registerConfirmPassword"
+					type="password"
 					name="registerConfirmPassword"
 					label="Pakartokite slaptažodį"
 					placeholder="Įveskite savo sukurtą slaptažodį"

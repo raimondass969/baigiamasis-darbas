@@ -1,12 +1,11 @@
 'use client';
+import HeaderActionButtons from './HeaderActionButtons';
 
-import DashboardActionMenu from './DashboardActionButtons';
-
-export default function DashboardHeader() {
+export default function Header() {
 	return (
 		<header className="border-b border-slate-800 px-6 py-4">
 			<div className="flex items-center justify-end ">
-				<DashboardActionMenu />
+				<HeaderActionButtons />
 			</div>
 		</header>
 	);

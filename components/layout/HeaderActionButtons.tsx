@@ -3,9 +3,10 @@
 import { useState } from 'react';
 import { LogOut, Moon, Settings, Sun } from 'lucide-react';
 import { signOut } from 'next-auth/react';
+// leidzia keist dark/white modu's
 import { useTheme } from 'next-themes';
 
-export default function DashboardActionMenu() {
+export default function HeaderActionButtons() {
 	const [open, setOpen] = useState(false);
 	const { theme, setTheme } = useTheme();
 
