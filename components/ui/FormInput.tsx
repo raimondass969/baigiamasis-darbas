@@ -4,6 +4,8 @@ type FormInputProps = {
 	label: string;
 	type?: string;
 	placeholder?: string;
+	value?: string;
+	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export default function FormInput({
@@ -12,6 +14,8 @@ export default function FormInput({
 	label,
 	type = 'text',
 	placeholder,
+	value,
+	onChange,
 }: FormInputProps) {
 	return (
 		<div className="flex flex-col gap-4 w-full">
@@ -23,7 +27,9 @@ export default function FormInput({
 				name={name}
 				type={type}
 				placeholder={placeholder}
-				className="px-4 py-2 rounded-2xl bg-slate-50 text-black focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-150 ease-out dark:bg-slate-900 dark:text-white dark:border-blue-500"
+				value={value}
+				onChange={onChange}
+				className="px-4 py-2 rounded-2xl bg-slate-50 text-black focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-150 ease-out dark:bg-slate-800/40 dark:text-white dark:border-blue-500"
 			/>
 		</div>
 	);

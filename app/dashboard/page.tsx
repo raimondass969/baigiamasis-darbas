@@ -1,13 +1,20 @@
 import { authOptions } from '@/lib/auth';
+import { prisma } from '@/lib/prisma';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 
 export default async function Dashboard() {
 	const session = await getServerSession(authOptions);
 
-	if (!session) {
+	if (!session?.user?.id) {
 		redirect('/');
 	}
+
+	const prismaCount = await prisma.project.count({
+		where: {
+			userId: Number(session.user.id),
+		},
+	});
 
 	return (
 		<div className="space-y-8">
@@ -21,7 +28,7 @@ export default async function Dashboard() {
 			<section className="grid gap-4 md:grid-cols-3">
 				<div className="rounded-2xl border border-slate-800 dark:bg-slate-900/60 p-5">
 					<p className="text-sm text-slate-400">Projektai</p>
-					<p className="mt-2 text-2xl font-bold">0</p>
+					<p className="mt-2 text-2xl font-bold">{prismaCount}</p>
 				</div>
 
 				<div className="rounded-2xl border border-slate-800 dark:bg-slate-900/60 p-5">

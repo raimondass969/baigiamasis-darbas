@@ -70,7 +70,7 @@ export const authOptions: NextAuthOptions = {
 			}
 			return token;
 		},
-
+		// priskiriam tokena sesijos useriui
 		async session({ session, token }) {
 			if (session.user) {
 				session.user.id = token.id as string;
