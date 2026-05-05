@@ -1,3 +1,4 @@
+import DashboardKpiCard from '@/components/dashboard/DashboardKpiCard';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { getServerSession } from 'next-auth';
@@ -19,27 +20,36 @@ export default async function Dashboard() {
 	return (
 		<div className="space-y-8">
 			<section>
-				<p className="text-sm text-slate-400">Sveiki sugrįžę</p>
-				<h1 className="text-3xl font-bold">
-					{session.user.name ?? 'Vartotojau'}
-				</h1>
+				<p className="text-lg font-bold ">Apžvalga</p>
+				<h2 className="text-xl font-semibold text-slate-500">
+					Bendra finansinė situacija
+				</h2>
 			</section>
 
-			<section className="grid gap-4 md:grid-cols-3">
-				<div className="rounded-2xl border border-slate-800 dark:bg-slate-900/60 p-5">
-					<p className="text-sm text-slate-400">Projektai</p>
-					<p className="mt-2 text-2xl font-bold">{prismaCount}</p>
-				</div>
+			<section className="grid gap-4 md:grid-cols-4">
+				<DashboardKpiCard
+					label="Pajamos šį mėnesį"
+					value="500"
+					description="16% daugiau nei praėjusį mėnesį"
+				/>
 
-				<div className="rounded-2xl border border-slate-800 dark:bg-slate-900/60 p-5">
-					<p className="text-sm text-slate-400">Pajamos</p>
-					<p className="mt-2 text-2xl font-bold">0 €</p>
-				</div>
+				<DashboardKpiCard
+					label="Išlaidos šį mėnesį"
+					value="250"
+					description="16% daugiau nei praėjusį mėnesį"
+				/>
 
-				<div className="rounded-2xl border border-slate-800 dark:bg-slate-900/60 p-5">
-					<p className="text-sm text-slate-400">Išlaidos</p>
-					<p className="mt-2 text-2xl font-bold">0 €</p>
-				</div>
+				<DashboardKpiCard
+					label="Grynasis rezultatas"
+					value="250"
+					description="16% daugiau nei praėjusį mėnesį"
+				/>
+
+				<DashboardKpiCard
+					label="Aktyvus projektai"
+					value={prismaCount}
+					description="??"
+				/>
 			</section>
 
 			<section className="grid gap-4 lg:grid-cols-2">

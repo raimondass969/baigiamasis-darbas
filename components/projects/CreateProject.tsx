@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import ProjectForm from './CreateProjectForm';
+import CreateProjectForm from './CreateProjectForm';
 
 export default function CreateProject() {
 	const [openForm, setOpenForm] = useState(false);
@@ -26,7 +26,9 @@ export default function CreateProject() {
 				</h1>
 			</section>
 
-			{openForm && <ProjectForm onClose={() => setOpenForm(false)} />}
+			{openForm && (
+				<CreateProjectForm onClose={() => setOpenForm(false)} />
+			)}
 		</div>
 	);
 }

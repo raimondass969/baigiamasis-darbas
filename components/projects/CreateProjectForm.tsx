@@ -2,11 +2,11 @@ import { useState } from 'react';
 import FormInput from '../ui/FormInput';
 import FormTextArea from '../ui/ProjectDescriptionTextArea';
 
-type ProjectFormProps = {
+type CreateProjectFormProps = {
 	onClose: () => void;
 };
 
-export default function ProjectForm({ onClose }: ProjectFormProps) {
+export default function CreateProjectForm({ onClose }: CreateProjectFormProps) {
 	const [projectName, setProjectName] = useState('');
 	const [projectDescription, setProjectDescription] = useState('');
 	const [error, setError] = useState('');
@@ -45,8 +45,8 @@ export default function ProjectForm({ onClose }: ProjectFormProps) {
 	}
 
 	return (
-		<div className="fixed inset-0 flex items-center justify-center">
-			<div className="dark:bg-slate-900/80 mb-32 rounded-xl border border-slate-700 bg-white p-6 shadow-lg w-full max-w-md ">
+		<div className="fixed inset-0 flex items-center justify-center z-50 bg-black/90	">
+			<div className="dark:bg-slate-900 mb-32 rounded-xl border border-slate-700 bg-white p-6 shadow-lg w-full max-w-md ">
 				<form onSubmit={handleSubmit}>
 					<div className="flex border-b border-slate-700/40 pb-4 mb-4 justify-between">
 						<h1 className="text-xl font-bold ">Naujas projektas</h1>
