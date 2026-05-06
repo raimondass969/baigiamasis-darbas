@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import CreateProjectForm from './CreateProjectForm';
+import AddButton from '../ui/AddActionButton';
 
 export default function CreateProject() {
 	const [openForm, setOpenForm] = useState(false);
@@ -12,12 +13,9 @@ export default function CreateProject() {
 					Projektų puslapis
 				</p>
 
-				<button
-					onClick={() => setOpenForm(true)}
-					className="rounded-lg bg-blue-500 hover:bg-blue-800 py-2 px-4"
-				>
+				<AddButton onClick={() => setOpenForm(true)}>
 					+ Naujas Projektas
-				</button>
+				</AddButton>
 			</div>
 
 			<section className="flex flex-col gap-4 ">

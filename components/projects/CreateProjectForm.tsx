@@ -18,7 +18,7 @@ export default function CreateProjectForm({ onClose }: CreateProjectFormProps) {
 		setError('');
 		setSuccess('');
 
-		const response = await fetch('/api/project/projectForm', {
+		const response = await fetch('/api/projects/projectForm', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -54,7 +54,7 @@ export default function CreateProjectForm({ onClose }: CreateProjectFormProps) {
 						<button
 							type="button"
 							onClick={onClose}
-							className="dark:text-slate-400 rounded-xl dark:hover:bg-slate-700/50 p-2"
+							className="dark:text-slate-400 rounded-xl dark:hover:bg-slate-700/50 p-2 "
 						>
 							X
 						</button>

@@ -57,6 +57,8 @@ model Category {
   name         String
   type         TransactionType
   transactions Transaction[]
+
+  @@unique([name, type])
 }
 
 enum TransactionType {

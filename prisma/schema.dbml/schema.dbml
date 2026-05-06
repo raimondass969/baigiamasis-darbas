@@ -41,6 +41,10 @@ Table Category {
   name String [not null]
   type TransactionType [not null]
   transactions Transaction [not null]
+
+  indexes {
+    (name, type) [unique]
+  }
 }
 
 Enum TransactionType {

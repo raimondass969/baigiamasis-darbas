@@ -13,11 +13,29 @@ export default async function ProjectsPage() {
 	}
 
 	const projects = await prisma.project.findMany({
+		where: {
+			userId: Number(session.user.id),
+		},
 		select: {
 			id: true,
 			name: true,
 			description: true,
 			createdAt: true,
+			updatedAt: true,
+			transactions: {
+				select: {
+					id: true,
+					amount: true,
+					date: true,
+					category: {
+						select: {
+							id: true,
+							name: true,
+							type: true,
+						},
+					},
+				},
+			},
 		},
 	});
 
