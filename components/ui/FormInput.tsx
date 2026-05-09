@@ -38,7 +38,7 @@ export default function FormInput({
 				required={required}
 				min={min}
 				step={step}
-				className="p-3 rounded-xl bg-slate-50 text-black focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-150 ease-out dark:bg-slate-800/40 dark:text-white dark:border-blue-500"
+				className="p-3 rounded-xl bg-slate-50 text-black focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-150 ease-out dark:bg-slate-800/40 dark:text-white border dark:border-blue-500"
 			/>
 		</div>
 	);

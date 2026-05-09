@@ -52,10 +52,21 @@ export default function ProjectTable({ projects }: ProjectTableProps) {
 				<tbody>
 					{projects.map((project) => {
 						// filtruojam transakcijas pagal tipa ir suskaiciuojam suma
-						const income = project.transactions
+						const incomeTotal = project.transactions
 							.filter(
 								(transaction) =>
 									transaction.category.type === 'INCOME',
+							)
+							.reduce(
+								(sum, transaction) =>
+									sum + transaction.amount.toNumber(),
+								0,
+							);
+
+						const expenseTotal = project.transactions
+							.filter(
+								(transaction) =>
+									transaction.category.type === 'EXPENSE',
 							)
 							.reduce(
 								(sum, transaction) =>
@@ -78,13 +89,13 @@ export default function ProjectTable({ projects }: ProjectTableProps) {
 									{project.createdAt.toLocaleDateString()}
 								</td>
 								<td className="p-3 border-b border-slate-500">
-									{income}
+									{incomeTotal}
 								</td>
 								<td className="p-3 border-b border-slate-500">
-									0
+									{expenseTotal}
 								</td>
 								<td className="p-3 border-b border-slate-500">
-									0
+									{incomeTotal - expenseTotal}
 								</td>
 							</tr>
 						);

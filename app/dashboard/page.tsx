@@ -1,19 +1,13 @@
 import DashboardKpiCard from '@/components/dashboard/DashboardKpiCard';
-import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
-import { getServerSession } from 'next-auth';
-import { redirect } from 'next/navigation';
+import { checkUserSession } from '@/lib/auth/checkUserSession';
 
 export default async function Dashboard() {
-	const session = await getServerSession(authOptions);
-
-	if (!session?.user?.id) {
-		redirect('/');
-	}
+	const userId = await checkUserSession();
 
 	const prismaCount = await prisma.project.count({
 		where: {
-			userId: Number(session.user.id),
+			userId: Number(userId),
 		},
 	});
 
@@ -29,19 +23,19 @@ export default async function Dashboard() {
 			<section className="grid gap-4 md:grid-cols-4">
 				<DashboardKpiCard
 					label="Pajamos šį mėnesį"
-					value="500"
+					value="0"
 					description="16% daugiau nei praėjusį mėnesį"
 				/>
 
 				<DashboardKpiCard
 					label="Išlaidos šį mėnesį"
-					value="250"
+					value="0"
 					description="16% daugiau nei praėjusį mėnesį"
 				/>
 
 				<DashboardKpiCard
 					label="Grynasis rezultatas"
-					value="250"
+					value="0"
 					description="16% daugiau nei praėjusį mėnesį"
 				/>
 

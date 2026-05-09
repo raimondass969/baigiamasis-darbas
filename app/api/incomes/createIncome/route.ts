@@ -15,7 +15,7 @@ export async function POST(request: Request) {
 
 	const body = await request.json();
 
-	const { amount, projectId, categoryId, date } = body;
+	const { amount, projectId, categoryId, date, description } = body;
 
 	if (!amount || !projectId || !categoryId || !date) {
 		return NextResponse.json(
@@ -24,13 +24,31 @@ export async function POST(request: Request) {
 		);
 	}
 
-	const income = await prisma.transaction.create({
+	const category = await prisma.category.findUnique({
+		where: {
+			id: Number(categoryId),
+		},
+	});
+
+	if (!category) {
+		return NextResponse.json(
+			{ message: 'Kategorija nerasta' },
+			{ status: 404 },
+		);
+	}
+
+	const transaction = await prisma.transaction.create({
 		data: {
 			amount: Number(amount),
 			date: new Date(date),
+			description,
 			projectId: Number(projectId),
 			categoryId: Number(categoryId),
 		},
+		include: {
+			category: true,
+		},
 	});
-	return NextResponse.json(income);
+
+	return NextResponse.json(transaction);
 }

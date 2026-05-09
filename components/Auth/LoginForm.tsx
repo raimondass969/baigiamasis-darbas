@@ -45,15 +45,10 @@ export default function LoginForm() {
 	return (
 		<div className="w-full">
 			<p className="font-semibold text-center ">Prisijungimo puslapis</p>
-			{/* Klaidos isvedimas */}
-			{error && (
-				<p className="mt-4 rounded-xl bg-red-500/10 border border-red-500 px-4 py-2 text-sm text-red-300">
-					{error}
-				</p>
-			)}
+
 			<form
 				onSubmit={handleSubmit}
-				className="flex flex-col gap-4 w-full"
+				className="flex flex-col gap-4 w-full "
 			>
 				{/* loginForm email */}
 				<FormInput
@@ -87,6 +82,13 @@ export default function LoginForm() {
 				>
 					{isLoading ? 'Jungiamasi...' : 'Prisijungti'}
 				</button>
+
+				{/* Klaidos isvedimas */}
+				{error && (
+					<p className="mt-4 rounded-xl bg-red-500/10 border border-red-500 px-4 py-2 text-sm text-red-300">
+						{error}
+					</p>
+				)}
 			</form>
 		</div>
 	);
