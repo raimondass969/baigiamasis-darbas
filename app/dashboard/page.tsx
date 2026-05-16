@@ -1,18 +1,26 @@
-import DashboardKpiCard from '@/components/dashboard/DashboardKpiCard';
-import { prisma } from '@/lib/prisma';
 import { checkUserSession } from '@/lib/auth/checkUserSession';
+import DashboardPageCards from '@/components/dashboard/DashboardPageCards';
+import getUserProjectsForSelect from '@/lib/queries/projectsForSelect';
+import FilteredProjects from '@/components/filters/FilteredProjects';
 
-export default async function Dashboard() {
+type DashboardTypes = {
+	searchParams: Promise<{ projectId: string }>;
+};
+
+export default async function Dashboard({ searchParams }: DashboardTypes) {
 	const userId = await checkUserSession();
 
-	const prismaCount = await prisma.project.count({
-		where: {
-			userId: Number(userId),
-		},
-	});
+	const projectsForSelect = await getUserProjectsForSelect(Number(userId));
 
+	const params = await searchParams;
+	// ieskom url projectId
+	const selectedProjectId = params.projectId ?? '';
 	return (
 		<div className="space-y-8">
+			<FilteredProjects
+				projects={projectsForSelect}
+				selectedProjectId={selectedProjectId}
+			/>
 			<section>
 				<p className="text-lg font-bold ">Apžvalga</p>
 				<h2 className="text-xl font-semibold text-slate-500">
@@ -20,31 +28,7 @@ export default async function Dashboard() {
 				</h2>
 			</section>
 
-			<section className="grid gap-4 md:grid-cols-4">
-				<DashboardKpiCard
-					label="Pajamos šį mėnesį"
-					value="0"
-					description="16% daugiau nei praėjusį mėnesį"
-				/>
-
-				<DashboardKpiCard
-					label="Išlaidos šį mėnesį"
-					value="0"
-					description="16% daugiau nei praėjusį mėnesį"
-				/>
-
-				<DashboardKpiCard
-					label="Grynasis rezultatas"
-					value="0"
-					description="16% daugiau nei praėjusį mėnesį"
-				/>
-
-				<DashboardKpiCard
-					label="Aktyvus projektai"
-					value={prismaCount}
-					description="??"
-				/>
-			</section>
+			<DashboardPageCards selectedProjectId={selectedProjectId} />
 
 			<section className="grid gap-4 lg:grid-cols-2">
 				<div className="rounded-2xl border border-slate-800 dark:bg-slate-900/60 p-5">
