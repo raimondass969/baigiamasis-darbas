@@ -1,21 +1,21 @@
-import { authOptions } from '@/lib/auth';
+import { CheckUserProject } from '@/lib/auth/checkUserProject';
+import { getCurrentUser } from '@/lib/auth/getCurrentUser';
 import { prisma } from '@/lib/prisma';
-import { getServerSession } from 'next-auth/next';
 import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
-	const session = await getServerSession(authOptions);
+	const userId = await getCurrentUser();
 
-	if (!session?.user?.id) {
-		return NextResponse.json(
-			{ message: 'Vartotojas neprisijunges' },
+	if (!userId) {
+		return Response.json(
+			{ message: 'Vartotojas neprisijungęs' },
 			{ status: 401 },
 		);
 	}
 
 	const body = await request.json();
 
-	const { amount, projectId, categoryId, date, description } = body;
+	const { amount, projectId, categoryId, date, description, type } = body;
 
 	if (!amount || !projectId || !categoryId || !date) {
 		return NextResponse.json(
@@ -23,10 +23,29 @@ export async function POST(request: Request) {
 			{ status: 400 },
 		);
 	}
+	if (!['INCOME', 'EXPENSE'].includes(type)) {
+		return NextResponse.json(
+			{ message: 'Neteisingas transakcijos tipas' },
+			{ status: 400 },
+		);
+	}
 
-	const category = await prisma.category.findUnique({
+	const project = await CheckUserProject({
+		userId,
+		projectId: Number(projectId),
+	});
+
+	if (!project) {
+		return NextResponse.json(
+			{ message: 'Projektas nepriklauso vartotojui arba neegzistuoja' },
+			{ status: 401 },
+		);
+	}
+
+	const category = await prisma.category.findFirst({
 		where: {
 			id: Number(categoryId),
+			type,
 		},
 	});
 

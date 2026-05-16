@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import FormSelect, { SelectOption } from '../ui/FormSelect';
 import FormInput from '../ui/FormInput';
+import { useRouter } from 'next/navigation';
 
 type IncomesFormProps = {
 	onClose: () => void;
@@ -20,6 +21,7 @@ export default function IncomesForm({
 	const [success, setSuccess] = useState('');
 	const [description, setDescription] = useState('');
 	const [date, setDate] = useState('');
+	const router = useRouter();
 
 	async function submitForm(event: React.SubmitEvent<HTMLFormElement>) {
 		event.preventDefault();
@@ -33,7 +35,7 @@ export default function IncomesForm({
 			return;
 		}
 
-		const response = await fetch('/api/incomes/createIncome', {
+		const response = await fetch('/api/transactions', {
 			method: 'POST',
 			headers: {
 				'content-type': 'application/json',
@@ -44,6 +46,7 @@ export default function IncomesForm({
 				amount,
 				description,
 				date,
+				type: 'INCOME',
 			}),
 		});
 
@@ -62,6 +65,7 @@ export default function IncomesForm({
 		setDescription('');
 		setDate('');
 		setTimeout(() => {
+			router.refresh();
 			onClose();
 		}, 2000);
 	}

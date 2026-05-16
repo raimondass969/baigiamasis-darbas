@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import FormSelect, { SelectOption } from '../ui/FormSelect';
 import FormInput from '../ui/FormInput';
+import { useRouter } from 'next/navigation';
 
 type ExpenseFormProps = {
 	onClose: () => void;
@@ -20,7 +21,7 @@ export default function ExpenseForm({
 	const [expenseDescription, setExpenseDescription] = useState('');
 	const [expenseFormError, setExpenseFormError] = useState('');
 	const [expenseFormSuccess, setExpenseFormSuccess] = useState('');
-
+	const router = useRouter();
 	async function submitExpenseForm(
 		event: React.SubmitEvent<HTMLFormElement>,
 	) {
@@ -33,7 +34,7 @@ export default function ExpenseForm({
 			return;
 		}
 
-		const response = await fetch('/api/incomes/createIncome', {
+		const response = await fetch('/api/transactions', {
 			method: 'POST',
 			headers: {
 				'content-type': 'application/json',
@@ -42,6 +43,7 @@ export default function ExpenseForm({
 				projectId: expenseProjectId,
 				categoryId: expenseCategoryId,
 				description: expenseDescription,
+				type: 'EXPENSE',
 				date: expenseDate,
 				amount,
 			}),
@@ -58,6 +60,7 @@ export default function ExpenseForm({
 
 		setExpenseFormSuccess('Išlaidos sėkmingai sukurtos!');
 		setTimeout(() => {
+			router.refresh();
 			onClose();
 		}, 2000);
 	}
