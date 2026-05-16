@@ -1,5 +1,7 @@
 import CreateExpenses from '@/components/expenses/CreateExpenses';
+import ExpenseTable from '@/components/expenses/ExpenseTable';
 import { checkUserSession } from '@/lib/auth/checkUserSession';
+import { GetExpenses } from '@/lib/queries/expenses';
 import getUserProjectsForSelect from '@/lib/queries/projectsForSelect';
 import { getTransactionCategory } from '@/lib/queries/transactionCategories';
 import { TransactionType } from '@prisma/client';
@@ -8,7 +10,7 @@ export default async function Expenses() {
 	const userId = await checkUserSession();
 
 	// Gaunam projketu sarasa prisijungusiam ID
-	const userProjects = await getUserProjectsForSelect(Number(userId));
+	const projectsForSelect = await getUserProjectsForSelect(Number(userId));
 
 	//Kategorijus islaidu
 	const expenseCategories = await getTransactionCategory(
@@ -20,17 +22,17 @@ export default async function Expenses() {
 		id: String(expense.id),
 		name: expense.name,
 	}));
-	//Projektu sarasas pasirinkti
-	const projectForSelect = userProjects.map((project) => ({
-		id: String(project.id),
-		name: project.name,
-	}));
+
+	// Visos islaidos su projekto pav,lentelei
+	const expenses = await GetExpenses(Number(userId));
+
 	return (
 		<div>
 			<CreateExpenses
-				projectSelect={projectForSelect}
+				projectSelect={projectsForSelect}
 				expenseCategories={expensesOptions}
 			/>
+			<ExpenseTable expenses={expenses} />
 		</div>
 	);
 }
