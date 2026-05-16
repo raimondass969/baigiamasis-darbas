@@ -6,6 +6,9 @@ export async function POST(request: Request) {
 		const { username, email, password, confirmPassword } =
 			await request.json();
 
+		const normEmail = email.trim().toLowerCase();
+		const normUsername = username.trim();
+
 		if (!username || !email || !password || !confirmPassword) {
 			return Response.json(
 				{ message: 'Visi laukrai privalomi!' },
@@ -20,7 +23,7 @@ export async function POST(request: Request) {
 		}
 		const existingUser = await prisma.user.findUnique({
 			where: {
-				email: email,
+				email: normEmail,
 			},
 		});
 		if (existingUser)
@@ -33,8 +36,8 @@ export async function POST(request: Request) {
 
 		const user = await prisma.user.create({
 			data: {
-				name: username,
-				email: email,
+				name: normUsername,
+				email: normEmail,
 				passwordHash: passwordHash,
 			},
 		});
@@ -51,7 +54,6 @@ export async function POST(request: Request) {
 		return Response.json(
 			{
 				message: 'Įvyko klaida',
-				error: error instanceof Error ? error.message : String(error),
 			},
 			{ status: 500 },
 		);

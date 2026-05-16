@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import FormInput from '../ui/FormInput';
 import FormTextArea from '../ui/ProjectDescriptionTextArea';
+import { useRouter } from 'next/navigation';
 
 type CreateProjectFormProps = {
 	onClose: () => void;
@@ -11,6 +12,7 @@ export default function CreateProjectForm({ onClose }: CreateProjectFormProps) {
 	const [projectDescription, setProjectDescription] = useState('');
 	const [error, setError] = useState('');
 	const [success, setSuccess] = useState('');
+	const router = useRouter();
 
 	async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
 		event.preventDefault();
@@ -40,6 +42,7 @@ export default function CreateProjectForm({ onClose }: CreateProjectFormProps) {
 		setProjectName('');
 		setProjectDescription('');
 		setTimeout(() => {
+			router.refresh();
 			onClose();
 		}, 2000);
 	}

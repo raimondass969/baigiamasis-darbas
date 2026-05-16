@@ -13,7 +13,6 @@ export const authOptions: NextAuthOptions = {
 	},
 	providers: [
 		CredentialsProvider({
-			name: 'Credentials',
 			//aprasom kokiu lauku tikysi NextAuth
 			credentials: {
 				email: {

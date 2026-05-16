@@ -1,14 +1,15 @@
 import { authOptions } from '@/lib/auth';
+import { getCurrentUser } from '@/lib/auth/getCurrentUser';
 import { prisma } from '@/lib/prisma';
 import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
-	const session = await getServerSession(authOptions);
+	const userId = await getCurrentUser();
 
-	if (!session?.user?.id) {
-		return NextResponse.json(
-			{ message: 'Vartotojas neprisijunges' },
+	if (!userId) {
+		return Response.json(
+			{ message: 'Vartotojas neprisijungęs' },
 			{ status: 401 },
 		);
 	}
@@ -28,7 +29,7 @@ export async function POST(request: Request) {
 	const project = await prisma.project.create({
 		data: {
 			name,
-			userId: Number(session.user.id),
+			userId: Number(userId),
 			description,
 		},
 	});

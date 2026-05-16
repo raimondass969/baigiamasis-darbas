@@ -6,7 +6,7 @@ export type SelectOption = {
 type FormSelectProps = {
 	id: string;
 	name: string;
-	label: string;
+	label?: string;
 	value: string;
 	required?: boolean;
 	options: SelectOption[];
