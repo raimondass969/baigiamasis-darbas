@@ -6,8 +6,8 @@ import { dateFilter } from '../filters/dateFilter';
 export async function getExpenses(
 	userId: number,
 	selectedProjectId: string,
-	year: string,
-	month: string,
+	year?: string,
+	month?: string,
 ) {
 	const projectsForFilter = projectFilter(Number(userId), selectedProjectId);
 	const dateForFilter = dateFilter(year, month);

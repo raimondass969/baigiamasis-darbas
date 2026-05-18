@@ -7,7 +7,7 @@ export default function AuthCardChanger() {
 	const [activeForm, setActiveForm] = useState<'login' | 'register'>('login');
 
 	return (
-		<div className="flex flex-col items-center gap-6 rounded-2xl border border-slate-700 dark:bg-slate-800  px-10 py-8 shadow-2xl shadow-black/40 max-w-xl w-full min-h-120">
+		<div className="flex flex-col items-center gap-6 rounded-2xl border border-slate-700 dark:bg-slate-800  px-10 py-8 shadow-2xl shadow-black/40 max-w-xl w-full min-h-120 mx-auto">
 			<div className="flex w-full rounded-xl bg-slate-700/50 p-1">
 				<button
 					onClick={() => setActiveForm('login')}

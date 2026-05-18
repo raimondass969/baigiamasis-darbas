@@ -33,7 +33,7 @@ export default function LoginForm() {
 		});
 
 		if (result?.error) {
-			setError('Neteisingas el pastas arba slaptazodis');
+			setError('Neteisingas el. paštas arba slaptažodis');
 			setIsLoading(false);
 			return;
 		}
@@ -65,7 +65,7 @@ export default function LoginForm() {
 					type="password"
 					name="loginPassword"
 					label="Slaptazodis"
-					placeholder="Iveskite savo slaptazodi"
+					placeholder="Iveskite savo slaptažodi"
 				/>
 
 				<div className="flex items-center justify-between">
@@ -78,7 +78,7 @@ export default function LoginForm() {
 				<button
 					type="submit"
 					disabled={isLoading}
-					className="w-full rounded-2xl bg-blue-500 px-4 py-2  disabled:opacity-60"
+					className="w-full rounded-2xl bg-blue-500 px-4 py-2  disabled:opacity-60 font-medium text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:blue-400"
 				>
 					{isLoading ? 'Jungiamasi...' : 'Prisijungti'}
 				</button>

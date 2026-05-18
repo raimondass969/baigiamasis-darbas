@@ -8,6 +8,7 @@ type FilteredProjcetsProps = {
 	selectedProjectId: string;
 	year?: string;
 	month?: string;
+	period?: string;
 };
 
 export default function FilteredProjects({
@@ -15,6 +16,7 @@ export default function FilteredProjects({
 	selectedProjectId,
 	year,
 	month,
+	period,
 }: FilteredProjcetsProps) {
 	// leidzia perkelt i kita url
 	const router = useRouter();
@@ -44,10 +46,22 @@ export default function FilteredProjects({
 			const [year, month] = value.split('-');
 			params.set('year', year);
 			params.set('month', month);
+			params.delete('period');
 		} else {
 			params.delete('year');
 			params.delete('month');
 		}
+		router.push(`${pathName}?${params.toString()}`);
+	}
+
+	function handleAllPeriod() {
+		const params = new URLSearchParams(searchParams.toString());
+
+		params.set('period', 'all');
+
+		params.delete('year');
+		params.delete('month');
+
 		router.push(`${pathName}?${params.toString()}`);
 	}
 	return (
@@ -64,8 +78,25 @@ export default function FilteredProjects({
 				type="month"
 				className="flex items-center justify-between px-4 py-2 gap-2 rounded-xl border dark:border-slate-700 dark:bg-slate-800 hover:bg-slate-800 "
 				onChange={(e) => handleDateChange(e.target.value)}
-				value={year && month ? `${year}-${month.padStart(2, '0')}` : ''}
+				value={
+					period === 'all'
+						? ''
+						: year && month
+							? `${year}-${month.padStart(2, '0')}`
+							: ''
+				}
 			/>
+			<button
+				type="button"
+				onClick={handleAllPeriod}
+				className={`rounded-xl border px-4 py-2 transition dark:border-slate-700 ${
+					period === 'all'
+						? 'bg-blue-600 text-white'
+						: 'dark:bg-slate-800 hover:bg-slate-800'
+				}`}
+			>
+				Visas laikotarpis
+			</button>
 		</div>
 	);
 }

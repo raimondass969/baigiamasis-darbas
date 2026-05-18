@@ -2,6 +2,8 @@ import { useState } from 'react';
 import FormSelect, { SelectOption } from '../ui/FormSelect';
 import FormInput from '../ui/FormInput';
 import { useRouter } from 'next/navigation';
+import { tr } from 'zod/locales';
+import { fa } from 'zod/v4/locales';
 
 type ExpenseFormProps = {
 	onClose: () => void;
@@ -87,31 +89,34 @@ export default function ExpenseForm({
 							value={expenseProjectId}
 							name="expenseProjectId"
 							options={projectSelect}
-							label="Projektas"
+							label="Projektas(*)"
 							placeholder="Pasirinkite projektą"
 							onChange={(e) => setProjectId(e.target.value)}
+							required={false}
 						/>
 						<FormInput
 							id="expenseAmount"
 							name="expensesAmount"
 							label="Suma"
 							type="number"
-							placeholder="Įveskite sumą"
+							placeholder="Įveskite sumą *"
 							value={amount}
 							step={0.01}
 							onChange={(e) => setAmount(e.target.value)}
+							required={false}
 						/>
 
 						<FormSelect
 							id="expenseCategoryId"
 							name="expenseCategoryId"
-							label="kategorija"
+							label="kategorija(*)"
 							placeholder="Pasirinkite išlaidų kategoriją"
 							value={expenseCategoryId}
 							options={expenseCategories}
 							onChange={(e) =>
 								setExpenseCategoryId(e.target.value)
 							}
+							required={false}
 						/>
 
 						<FormInput

@@ -7,12 +7,18 @@ import { getTransactionCategory } from '@/lib/queries/transactionCategories';
 import { TransactionType } from '@prisma/client';
 
 type ExpenseType = {
-	searchParams: Promise<{ projectId: string; year: string; month: string }>;
+	searchParams: Promise<{ projectId: string; year?: string; month?: string }>;
 };
 
 export default async function Expenses({ searchParams }: ExpenseType) {
-	const { userId, selectedProjectId, projectsForSelect, year, month } =
-		await getProjectFilterPageData({ searchParams });
+	const {
+		userId,
+		selectedProjectId,
+		projectsForSelect,
+		year,
+		month,
+		period,
+	} = await getProjectFilterPageData({ searchParams });
 
 	//Kategorijus islaidu
 	const expenseCategories = await getTransactionCategory(
@@ -41,6 +47,7 @@ export default async function Expenses({ searchParams }: ExpenseType) {
 				selectedProjectId={selectedProjectId}
 				year={year}
 				month={month}
+				period={period}
 			/>
 			<CreateExpenses
 				projectSelect={projectsForSelect}

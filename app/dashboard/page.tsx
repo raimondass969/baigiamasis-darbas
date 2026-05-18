@@ -7,7 +7,7 @@ type DashboardTypes = {
 };
 
 export default async function Dashboard({ searchParams }: DashboardTypes) {
-	const { selectedProjectId, projectsForSelect, year, month } =
+	const { selectedProjectId, projectsForSelect, year, month, period } =
 		await getProjectFilterPageData({ searchParams });
 
 	return (
@@ -17,6 +17,7 @@ export default async function Dashboard({ searchParams }: DashboardTypes) {
 				selectedProjectId={selectedProjectId}
 				year={year}
 				month={month}
+				period={period}
 			/>
 			<section>
 				<p className="text-lg font-bold ">Apžvalga</p>
@@ -29,6 +30,7 @@ export default async function Dashboard({ searchParams }: DashboardTypes) {
 				selectedProjectId={selectedProjectId}
 				year={year}
 				month={month}
+				period={period}
 			/>
 
 			<section className="grid gap-4 lg:grid-cols-2">

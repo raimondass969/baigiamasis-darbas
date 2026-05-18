@@ -7,12 +7,22 @@ import FilteredProjects from '@/components/filters/FilteredProjects';
 import { getProjectFilterPageData } from '@/lib/filters/getFilterPageData';
 
 type IncomesType = {
-	searchParams: Promise<{ projectId?: string; from?: string; to?: string }>;
+	searchParams: Promise<{
+		projectId?: string;
+		year?: string;
+		month?: string;
+	}>;
 };
 
 export default async function Incomes({ searchParams }: IncomesType) {
-	const { userId, selectedProjectId, projectsForSelect, year, month } =
-		await getProjectFilterPageData({ searchParams });
+	const {
+		userId,
+		selectedProjectId,
+		projectsForSelect,
+		year,
+		month,
+		period,
+	} = await getProjectFilterPageData({ searchParams });
 
 	const incomeCategories = await getTransactionCategory(
 		TransactionType.INCOME,
@@ -33,6 +43,7 @@ export default async function Incomes({ searchParams }: IncomesType) {
 				selectedProjectId={selectedProjectId}
 				year={year}
 				month={month}
+				period={period}
 			/>
 			<CreateIncomes
 				projects={projectsForSelect}

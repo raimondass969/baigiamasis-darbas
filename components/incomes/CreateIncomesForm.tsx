@@ -91,30 +91,33 @@ export default function IncomesForm({
 						<FormSelect
 							id="projectId"
 							name="projectId"
-							label="Projektas"
+							label="Projektas (*)"
 							placeholder="Pasirinkite projektą"
 							value={projectId}
 							onChange={(e) => setProjectId(e.target.value)}
 							options={projects}
+							required={false}
 						/>
 						<FormInput
 							id="amount"
 							name="amount"
-							label="Suma"
+							label="Suma (*)"
 							type="number"
 							placeholder="Įveskite sumą"
 							value={amount}
 							step={0.01}
 							onChange={(e) => setAmount(e.target.value)}
+							required={false}
 						/>
 						<FormSelect
 							id="categoryId"
 							name="categoryId"
-							label="Kategorija"
+							label="Kategorija (*)"
 							placeholder="Pasirinkite kategoriją"
 							value={categoryId}
 							onChange={(e) => setCategoryId(e.target.value)}
 							options={categories}
+							required={false}
 						/>
 						<FormInput
 							id="date"
@@ -124,6 +127,7 @@ export default function IncomesForm({
 							placeholder="Pasirinkite datą"
 							value={date}
 							onChange={(e) => setDate(e.target.value)}
+							required={false}
 						/>
 
 						<FormInput
@@ -134,6 +138,7 @@ export default function IncomesForm({
 							value={description}
 							onChange={(e) => setDescription(e.target.value)}
 							placeholder="Įveskite aprašymą (nebūtina)"
+							required={false}
 						/>
 
 						<button

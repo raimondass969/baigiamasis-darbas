@@ -1,17 +1,20 @@
 import { checkUserSession } from '@/lib/auth/checkUserSession';
 import DashboardKpiCard from './DashboardKpiCard';
 import getDashboardSummary from '@/lib/queries/dashboardSummary';
+import { getDashboardLabels } from '@/lib/dashboard/dashboardLabels';
 
 export type DashboardPageCardsProps = {
 	selectedProjectId: string;
-	year: string;
-	month: string;
+	year?: string;
+	month?: string;
+	period: string;
 };
 
 export default async function DashboardPageCards({
 	selectedProjectId,
 	year,
 	month,
+	period,
 }: DashboardPageCardsProps) {
 	const userId = await checkUserSession();
 	const userSummary = await getDashboardSummary(
@@ -21,33 +24,35 @@ export default async function DashboardPageCards({
 		month,
 	);
 
+	const labels = getDashboardLabels(period);
+
 	return (
 		<section className="grid gap-4 md:grid-cols-4">
 			<DashboardKpiCard
-				label="Pajamos šį mėnesį"
+				label={labels.incomeTitle}
 				value={`${userSummary.incomeTotal} €`}
-				valueColor={`${userSummary.incomeTotal < 0 ? 'text-red-500' : 'text-green-500'}`}
-				description="-"
+				valueColor="text-green-500"
+				description={labels.periodText}
 			/>
 
 			<DashboardKpiCard
-				label="Išlaidos šį mėnesį"
+				label={labels.expenseTitle}
 				value={`${userSummary.expenseTotal} €`}
-				valueColor={`${userSummary.expenseTotal > 0 ? 'text-red-500' : 'text-green-500'}`}
-				description="-"
+				valueColor="text-red-500"
+				description={labels.periodText}
 			/>
 
 			<DashboardKpiCard
-				label="Grynasis rezultatas"
+				label={labels.balanceTitle}
 				value={`${userSummary.balance} €`}
 				valueColor={`${userSummary.balance < 0 ? 'text-red-500' : 'text-green-500'}`}
-				description="-"
+				description={labels.balanceDescription}
 			/>
 
 			<DashboardKpiCard
-				label="Aktyvus projektai"
+				label={labels.projectsTitle}
 				value={userSummary.projectCount}
-				description="??"
+				description={labels.projectsDescription}
 			/>
 		</section>
 	);

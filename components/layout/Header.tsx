@@ -1,20 +1,18 @@
-'use client';
-import HeaderActionButtons from './HeaderActionButtons';
-import Image from 'next/image';
+import { authOptions } from '@/lib/auth';
+import { getServerSession } from 'next-auth';
+import UserMenu from './UserMenu';
 
-export default function Header() {
+export default async function Header() {
+	const session = await getServerSession(authOptions);
+	const name = session?.user?.name ?? 'Vartotojas';
+
+	const initials = name[0].toUpperCase();
+
 	return (
 		<header className="border-b border-slate-800 px-6 py-4">
-			<div className="flex items-center justify-end">
-				{/*
-				<Image
-					src="/financial-system-finance.svg"
-					alt="inancial-system"
-					width={60}
-					height={40}
-				/>
-				*/}
-				<HeaderActionButtons />
+			<div className="flex items-center justify-between">
+				<div className="text-sm text-slate-400">Finansų sistema</div>
+				<UserMenu name={name} initials={initials} />
 			</div>
 		</header>
 	);

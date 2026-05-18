@@ -1,12 +1,17 @@
 'use client';
 
 import { useState } from 'react';
-import { LogOut, Moon, Settings, Sun } from 'lucide-react';
-import { signOut } from 'next-auth/react';
-// leidzia keist dark/white modu's
 import { useTheme } from 'next-themes';
+import { ChevronDown, LogOut, Moon, Sun } from 'lucide-react';
+import { signOut } from 'next-auth/react';
 
-export default function HeaderActionButtons() {
+export default function UserMenu({
+	name,
+	initials,
+}: {
+	name: string;
+	initials: string;
+}) {
 	const [open, setOpen] = useState(false);
 	const { theme, setTheme } = useTheme();
 
@@ -17,9 +22,13 @@ export default function HeaderActionButtons() {
 			<button
 				type="button"
 				onClick={() => setOpen((value) => !value)}
-				className="rounded-xl border border-slate-700 p-2 text-slate-200 hover:bg-slate-800"
+				className="flex items-center gap-2 rounded-xl border border-slate-700 p-2 text-slate-200 hover:bg-slate-800"
 			>
-				<Settings size={20} />
+				<div className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-700 text-xs font-medium text-blue-100">
+					{initials}
+				</div>
+				<span className="text-sm text-slate-200">{name}</span>
+				<ChevronDown size={14} className="text-slate-400" />
 			</button>
 
 			{open && (

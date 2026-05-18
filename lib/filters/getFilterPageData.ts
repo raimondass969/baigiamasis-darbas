@@ -1,4 +1,3 @@
-import { ST } from 'next/dist/shared/lib/utils';
 import { checkUserSession } from '../auth/checkUserSession';
 import getUserProjectsForSelect from '../queries/projectsForSelect';
 
@@ -7,20 +6,31 @@ type SearchParamsProps = {
 		projectId?: string;
 		year?: string;
 		month?: string;
+		period?: string;
 	}>;
 };
 export async function getProjectFilterPageData({
 	searchParams,
 }: SearchParamsProps) {
 	const params = await searchParams;
+
 	// is url pasiimame pasirinkto projectoId
 	const selectedProjectId = params.projectId ?? '';
+
+	const period = params.period ?? 'month';
+
 	// Date block
 	const currentDate = new Date();
 
-	const year = params.year ?? String(currentDate.getFullYear());
+	const year =
+		period === 'all'
+			? ''
+			: (params.year ?? String(currentDate.getFullYear()));
 	const month =
-		params.month ?? String(currentDate.getMonth() + 1).padStart(2, '0');
+		period === 'all'
+			? ''
+			: (params.month ??
+				String(currentDate.getMonth() + 1).padStart(2, '0'));
 
 	//Patikrinam ar prisijunges
 	const userId = await checkUserSession();
@@ -33,5 +43,6 @@ export async function getProjectFilterPageData({
 		projectsForSelect,
 		year,
 		month,
+		period,
 	};
 }
