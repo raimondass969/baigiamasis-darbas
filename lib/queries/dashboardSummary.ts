@@ -1,23 +1,20 @@
 import { TransactionType } from '@prisma/client';
 import { prisma } from '../prisma';
+import { projectFilter } from '../filters/projectFilter';
+import { dateFilter } from '../filters/dateFilter';
 
 export default async function getDashboardSummary(
 	userId: number,
 	selectedProjectId: string,
+	year: string,
+	month: string,
 ) {
 	// Nustatom siandienos data
 	const dateNow = new Date();
 
-	//
-	const projectFilter = selectedProjectId
-		? {
-				userId: userId,
-				id: Number(selectedProjectId),
-			}
-		: {
-				userId: userId,
-			};
+	const dateForFilter = dateFilter(year, month);
 
+	const projectsForFilter = projectFilter(Number(userId), selectedProjectId);
 	// Pasiemam aktualius metus/menesi ir pradedam nuo 1 menesio dienos.
 	const startOfMonth = new Date(dateNow.getFullYear(), dateNow.getMonth(), 1);
 
@@ -31,20 +28,17 @@ export default async function getDashboardSummary(
 	const [projectCount, incomeCount, expenseCount] = await Promise.all([
 		// Gaunam projektu skaiciu
 		prisma.project.count({
-			where: projectFilter,
+			where: projectsForFilter,
 		}),
 
 		// Gaunam userId projektus isrusiuojam pagal pajamu kategorija is suskaiciuojam total.
 		prisma.transaction.aggregate({
 			where: {
-				project: projectFilter,
+				project: projectsForFilter,
 				category: {
 					type: TransactionType.INCOME,
 				},
-				date: {
-					gte: startOfMonth,
-					lt: startOfNextMonth,
-				},
+				...(dateForFilter ? { date: dateForFilter } : {}),
 			},
 			_sum: {
 				amount: true,
@@ -53,7 +47,7 @@ export default async function getDashboardSummary(
 
 		prisma.transaction.aggregate({
 			where: {
-				project: projectFilter,
+				project: projectsForFilter,
 				category: {
 					type: TransactionType.EXPENSE,
 				},

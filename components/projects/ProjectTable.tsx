@@ -23,6 +23,15 @@ type ProjectTableProps = {
 };
 
 export default function ProjectTable({ projects }: ProjectTableProps) {
+	if (projects.length === 0) {
+		return (
+			<div className="rounded-xl border border-slate-700 bg-slate-800/40 p-4 text-center">
+				<p className="text-lg font-semibold">Projėktų dar nėra.</p>
+				<p>Sukurkite pirmą projektą, kad jis būtų rodomas lentelėje.</p>
+			</div>
+		);
+	}
+
 	return (
 		<div className="w-full bg-slate-800/40 rounded-2xl overflow-hidden border border-slate-700">
 			<table className="w-full rounded-2xl ">
@@ -31,8 +40,8 @@ export default function ProjectTable({ projects }: ProjectTableProps) {
 						<th className="p-3  ">Projekto Pavadinimas</th>
 						<th className="p-3 ">Aprašymas</th>
 						<th className="p-3">Sukurta</th>
-						<th className="p-3 ">Pajamos</th>
-						<th className="p-">Islaidos</th>
+						<th className="p-3 ">Pajamų suma</th>
+						<th className="p-3">Išlaidų suma</th>
 						<th className="p-3 border-slate-500 border-b">
 							Balansas
 						</th>
@@ -64,6 +73,7 @@ export default function ProjectTable({ projects }: ProjectTableProps) {
 								0,
 							);
 
+						const balance = incomeTotal - expenseTotal;
 						return (
 							<tr
 								key={project.id}
@@ -78,12 +88,16 @@ export default function ProjectTable({ projects }: ProjectTableProps) {
 								<td className="p-3 text-left">
 									{project.createdAt.toLocaleDateString()}
 								</td>
-								<td className="p-3 text-left">{incomeTotal}</td>
 								<td className="p-3 text-left">
-									{expenseTotal}
+									{incomeTotal} €
 								</td>
 								<td className="p-3 text-left">
-									{incomeTotal - expenseTotal}
+									{expenseTotal} €
+								</td>
+								<td
+									className={`p-3 text-left ${balance < 0 ? 'text-red-500' : 'text-green-500'}`}
+								>
+									{balance}
 								</td>
 							</tr>
 						);

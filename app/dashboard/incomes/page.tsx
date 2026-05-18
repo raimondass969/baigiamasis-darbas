@@ -1,14 +1,18 @@
 import CreateIncomes from '@/components/incomes/CreateIncomes';
 import { getTransactionCategory } from '@/lib/queries/transactionCategories';
 import { TransactionType } from '@prisma/client';
-import getUserProjectsForSelect from '@/lib/queries/projectsForSelect';
-import { checkUserSession } from '@/lib/auth/checkUserSession';
 import IncomeTable from '@/components/incomes/IncomeTable';
-import { GetIncomes } from '@/lib/queries/incomes';
+import { getIncomes } from '@/lib/queries/incomes';
+import FilteredProjects from '@/components/filters/FilteredProjects';
+import { getProjectFilterPageData } from '@/lib/filters/getFilterPageData';
 
-export default async function Incomes() {
-	const userId = await checkUserSession();
-	const projectsForSelect = await getUserProjectsForSelect(Number(userId));
+type IncomesType = {
+	searchParams: Promise<{ projectId?: string; from?: string; to?: string }>;
+};
+
+export default async function Incomes({ searchParams }: IncomesType) {
+	const { userId, selectedProjectId, projectsForSelect, year, month } =
+		await getProjectFilterPageData({ searchParams });
 
 	const incomeCategories = await getTransactionCategory(
 		TransactionType.INCOME,
@@ -18,20 +22,20 @@ export default async function Incomes() {
 		id: String(category.id),
 		name: category.name,
 	}));
-	// Projektai select
-	const projectForSelect = projectsForSelect.map((project) => ({
-		id: String(project.id),
-		name: project.name,
-	}));
 
 	// Pajamos
-
-	const incomes = await GetIncomes(Number(userId));
+	const incomes = await getIncomes(userId, selectedProjectId, year, month);
 
 	return (
 		<div className="py-4 px-2">
+			<FilteredProjects
+				projects={projectsForSelect}
+				selectedProjectId={selectedProjectId}
+				year={year}
+				month={month}
+			/>
 			<CreateIncomes
-				projects={projectForSelect}
+				projects={projectsForSelect}
 				categories={categoryOptions}
 			/>
 			<IncomeTable incomes={incomes} />

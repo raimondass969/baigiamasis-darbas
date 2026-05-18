@@ -1,16 +1,18 @@
 import CreateExpenses from '@/components/expenses/CreateExpenses';
 import ExpenseTable from '@/components/expenses/ExpenseTable';
-import { checkUserSession } from '@/lib/auth/checkUserSession';
-import { GetExpenses } from '@/lib/queries/expenses';
-import getUserProjectsForSelect from '@/lib/queries/projectsForSelect';
+import FilteredProjects from '@/components/filters/FilteredProjects';
+import { getProjectFilterPageData } from '@/lib/filters/getFilterPageData';
+import { getExpenses } from '@/lib/queries/expenses';
 import { getTransactionCategory } from '@/lib/queries/transactionCategories';
 import { TransactionType } from '@prisma/client';
 
-export default async function Expenses() {
-	const userId = await checkUserSession();
+type ExpenseType = {
+	searchParams: Promise<{ projectId: string; year: string; month: string }>;
+};
 
-	// Gaunam projketu sarasa prisijungusiam ID
-	const projectsForSelect = await getUserProjectsForSelect(Number(userId));
+export default async function Expenses({ searchParams }: ExpenseType) {
+	const { userId, selectedProjectId, projectsForSelect, year, month } =
+		await getProjectFilterPageData({ searchParams });
 
 	//Kategorijus islaidu
 	const expenseCategories = await getTransactionCategory(
@@ -24,10 +26,22 @@ export default async function Expenses() {
 	}));
 
 	// Visos islaidos su projekto pav,lentelei
-	const expenses = await GetExpenses(Number(userId));
+	const expenses = await getExpenses(
+		Number(userId),
+		selectedProjectId,
+		year,
+		month,
+	);
 
+	//
 	return (
-		<div>
+		<div className="py-4 px-2">
+			<FilteredProjects
+				projects={projectsForSelect}
+				selectedProjectId={selectedProjectId}
+				year={year}
+				month={month}
+			/>
 			<CreateExpenses
 				projectSelect={projectsForSelect}
 				expenseCategories={expensesOptions}

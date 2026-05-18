@@ -18,8 +18,6 @@ type FilterSelectProps = {
 };
 
 export default function FilterSelect({
-	id,
-	name,
 	value,
 	onChange,
 	options,

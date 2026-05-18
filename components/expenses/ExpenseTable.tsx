@@ -1,10 +1,21 @@
-import { GetExpenses } from '@/lib/queries/expenses';
+import { getExpenses } from '@/lib/queries/expenses';
 
 type ExpenseTableProps = {
-	expenses: Awaited<ReturnType<typeof GetExpenses>>;
+	expenses: Awaited<ReturnType<typeof getExpenses>>;
 };
 
 export default function ExpenseTable({ expenses }: ExpenseTableProps) {
+	if (expenses.length === 0) {
+		return (
+			<div className="rounded-xl border border-slate-700 bg-slate-800/40 p-4 text-center">
+				<p className="text-lg font-semibold">Išlaidų įrašų dar nėra.</p>
+				<p>
+					Pridėkite pirmą išlaidų įrašą, kad jis būtų rodomas
+					lentelėje.
+				</p>
+			</div>
+		);
+	}
 	return (
 		<div className="bg-slate-800/40 rounded-2xl border border-slate-700 overflow-hidden">
 			<table className="w-full">
@@ -36,8 +47,8 @@ export default function ExpenseTable({ expenses }: ExpenseTableProps) {
 							<td className="p-4 text-left ">
 								{expense.description}
 							</td>
-							<td className="p-4 text-left ">
-								{expense.amount.toNumber()} $
+							<td className="p-4 text-left text-red-500">
+								{expense.amount.toNumber()} €
 							</td>
 						</tr>
 					))}

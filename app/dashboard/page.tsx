@@ -1,25 +1,22 @@
-import { checkUserSession } from '@/lib/auth/checkUserSession';
 import DashboardPageCards from '@/components/dashboard/DashboardPageCards';
-import getUserProjectsForSelect from '@/lib/queries/projectsForSelect';
 import FilteredProjects from '@/components/filters/FilteredProjects';
+import { getProjectFilterPageData } from '@/lib/filters/getFilterPageData';
 
 type DashboardTypes = {
-	searchParams: Promise<{ projectId: string }>;
+	searchParams: Promise<{ projectId: string; year?: string; month?: string }>;
 };
 
 export default async function Dashboard({ searchParams }: DashboardTypes) {
-	const userId = await checkUserSession();
+	const { selectedProjectId, projectsForSelect, year, month } =
+		await getProjectFilterPageData({ searchParams });
 
-	const projectsForSelect = await getUserProjectsForSelect(Number(userId));
-
-	const params = await searchParams;
-	// ieskom url projectId
-	const selectedProjectId = params.projectId ?? '';
 	return (
 		<div className="space-y-8">
 			<FilteredProjects
 				projects={projectsForSelect}
 				selectedProjectId={selectedProjectId}
+				year={year}
+				month={month}
 			/>
 			<section>
 				<p className="text-lg font-bold ">Apžvalga</p>
@@ -28,7 +25,11 @@ export default async function Dashboard({ searchParams }: DashboardTypes) {
 				</h2>
 			</section>
 
-			<DashboardPageCards selectedProjectId={selectedProjectId} />
+			<DashboardPageCards
+				selectedProjectId={selectedProjectId}
+				year={year}
+				month={month}
+			/>
 
 			<section className="grid gap-4 lg:grid-cols-2">
 				<div className="rounded-2xl border border-slate-800 dark:bg-slate-900/60 p-5">
