@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Finance Management System
 
-## Getting Started
+Small business financial data management system created as a final study project.
 
-First, run the development server:
+The application allows users to manage projects, track income and expenses, view financial summaries and filter data by project and time period.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Technologies
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Next.js
+- TypeScript
+- React
+- Prisma ORM
+- MySQL
+- NextAuth
+- Tailwind CSS
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+  ## Main Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- User registration and authentication
+- Project creation and management
+- Income and expense tracking
+- Dashboard with financial KPI summaries
+- Filtering by project
+- Filtering by selected month or full period
+- Server-side data fetching using Next.js App Router
+- User-specific data filtering based on session
 
-## Learn More
+  ## Dashboard
 
-To learn more about Next.js, take a look at the following resources:
+  The dashboard displays:
+- Total income
+- Total expenses
+- Balance
+- Number of projects
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The data can be filtered by project and by selected time period.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+ ## Screenshots
+ 
+ ### Register page
+ <img width="1435" height="679" alt="image" src="https://github.com/user-attachments/assets/7ff55769-9082-416f-b5ae-6da9b08803f1" />
+ 
+ ### Dashboard
+ <img width="1148" height="863" alt="image" src="https://github.com/user-attachments/assets/95eb07b1-52db-489a-8069-634b50cf9850" />
 
-## Deploy on Vercel
+ ### Income Page
+ <img width="1175" height="581" alt="image" src="https://github.com/user-attachments/assets/7ab0275c-58c3-4917-b2fb-bd18f2f8dc0b" />
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+ ### Create Income
+ <img width="1365" height="921" alt="image" src="https://github.com/user-attachments/assets/233d4f2a-6a70-422c-b852-eb353c466b58" />
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+ 
+
+
+## Database Models
+
+The project uses a relational MySQL database with Prisma ORM.
+
+Main models:
+
+- User
+- Project
+- Transaction
+- Category
+- TransactionType
+
+Transactions are connected to projects and categories. This allows the system to calculate income, expenses and balance for each user.
+
+
+  ## Project Structure
+
+``` text
+app/              # Next.js App Router pages and API routes
+components/       # Reusable UI and dashboard components
+lib/              # Authentication, Prisma and query logic
+prisma/           # Prisma schema and database models
+types/            # TypeScript types
