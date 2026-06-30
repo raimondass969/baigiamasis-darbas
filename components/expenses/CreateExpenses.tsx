@@ -16,8 +16,8 @@ export default function CreateExpenses({
 }: CreateExpenseProps) {
 	const [openExpenseForm, setOpenExpenseForm] = useState(false);
 	return (
-		<div className="py-4 px-2">
-			<div className="flex justify-between gap-4">
+		<div className="py-4 px-2 space-y-4">
+			<div className="flex flex-wrap justify-between gap-4">
 				<h1 className="text-3xl">Išlaidos</h1>
 
 				<AddButton onClick={() => setOpenExpenseForm(true)}>

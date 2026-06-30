@@ -29,11 +29,13 @@ export async function getIncomes(
 			date: true,
 			project: {
 				select: {
+					id: true,
 					name: true,
 				},
 			},
 			category: {
 				select: {
+					id: true,
 					name: true,
 				},
 			},

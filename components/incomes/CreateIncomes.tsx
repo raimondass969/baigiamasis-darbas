@@ -18,8 +18,8 @@ export default function CreateIncomes({
 
 	return (
 		<div className="py-4 px-2">
-			<div className="flex justify-between gap-4">
-				<h1 className="text-3xl font-bold">Pajamos</h1>
+			<div className="flex flex-wrap justify-between items-center gap-4">
+				<h1 className="text-2xl sm:text-3xl font-bold">Pajamos</h1>
 
 				<AddButton onClick={() => setOpenIncomesForm(true)}>
 					+ Pridėti pajamų įrašą
