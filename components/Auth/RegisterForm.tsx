@@ -50,7 +50,7 @@ export default function RegisterForm() {
 		setSuccess('');
 
 		if (!username || !email || !password || !confirmPassword) {
-			setError('Visi lauktai laukai yra privalomi');
+			setError('Visi laukai yra privalomi');
 			return;
 		}
 
@@ -89,7 +89,7 @@ export default function RegisterForm() {
 	return (
 		<>
 			<h1 className="font-bold text-center dark:text-slate-100">
-				Registracijos puslapis
+				Registracija
 			</h1>
 
 			{error && (
@@ -119,9 +119,10 @@ export default function RegisterForm() {
 				{/* Registracijos el pastas */}
 				<FormInput
 					id="registerEmail"
+					type="email"
 					name="registerEmail"
-					label="Vartotojo @paštas"
-					placeholder="Iveskite savo el pašta"
+					label="El. paštas"
+					placeholder="Įveskite savo el. pašta"
 				/>
 
 				{/* Registracijos slaptazodis */}
@@ -144,7 +145,7 @@ export default function RegisterForm() {
 
 				<button
 					type="submit"
-					className="w-full rounded-2xl bg-blue-500 px-4 py-2  disabled:opacity-60 font-medium text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:blue-400"
+					className="w-full rounded-2xl bg-blue-500 px-4 py-2  disabled:opacity-60 font-medium text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
 				>
 					Registruotis
 				</button>

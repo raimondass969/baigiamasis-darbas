@@ -41,7 +41,7 @@ export default function FormInput({
 				required={required}
 				min={min}
 				step={step}
-				className="w-full rounded-xl border bg-white px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500"
+				className="w-full rounded-xl border bg-white px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:bg-slate-700/40 dark:text-slate-100 dark:placeholder:text-slate-500"
 			/>
 		</div>
 	);

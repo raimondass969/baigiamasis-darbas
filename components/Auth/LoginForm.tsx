@@ -55,7 +55,7 @@ export default function LoginForm() {
 					id="loginEmail"
 					name="loginEmail"
 					label="El paštas"
-					placeholder="Iveskite savo el pašta"
+					placeholder="Įveskite savo el. pašta"
 				/>
 
 				{/* loginForm password */}
@@ -65,8 +65,16 @@ export default function LoginForm() {
 					type="password"
 					name="loginPassword"
 					label="Slaptazodis"
-					placeholder="Iveskite savo slaptažodi"
+					placeholder="********"
 				/>
+				<div className="flex justify-end mt-1.5">
+					<a
+						href="#"
+						className="text-xs text-blue-400 hover:text-blue-300 transition-colors"
+					>
+						Pamiršote slaptažodį?
+					</a>
+				</div>
 
 				<div className="flex items-center justify-between">
 					<label className="flex items-center gap-2 cursor-pointer">

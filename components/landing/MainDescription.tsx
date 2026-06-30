@@ -16,11 +16,11 @@ export default function Description() {
 
 				<div className="space-y-3">
 					<h1 className="font-bold text-4xl">
-						Projektu finansu valdymo sistema
+						Projektų finansų valdymo sistema
 					</h1>
 
 					<p className="text-slate-400">
-						Valdykite projektus, registruokite pajamas ir islaidas
+						Valdykite projektus, registruokite pajamas ir išlaidas
 						vienoje vietoje.
 					</p>
 				</div>
@@ -33,7 +33,7 @@ export default function Description() {
 
 					<div>
 						<h2 className="text-2xl font-semibold">
-							Projektu valdymas
+							Projektų valdymas
 						</h2>
 
 						<p className="text-slate-400">
@@ -49,10 +49,12 @@ export default function Description() {
 					</div>
 
 					<div>
-						<h3 className="text-2xl">Pajamos ir islaidos</h3>
+						<h3 className="text-2xl font-bold">
+							Pajamos ir išlaidos
+						</h3>
 
 						<p className=" text-slate-400">
-							Lengvai iveskite ir sekite finansus
+							Lengvai įveskite ir sekite finansus
 						</p>
 					</div>
 				</div>
@@ -63,7 +65,9 @@ export default function Description() {
 					</div>
 
 					<div>
-						<h4 className="text-2xl">Aiskios ataskaitos</h4>
+						<h4 className="text-2xl font-bold">
+							Aiškios ataskaitos
+						</h4>
 
 						<p className="text-slate-400">
 							Matykite grafikus ir suvestines
