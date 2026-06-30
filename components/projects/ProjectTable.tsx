@@ -36,7 +36,7 @@ export default function ProjectTable({ projects }: ProjectTableProps) {
 		<div className="w-full bg-slate-800/40 rounded-2xl overflow-hidden border border-slate-700">
 			<table className="w-full rounded-2xl ">
 				<thead>
-					<tr className="text-left hover:bg-slate-800/50 transition-colors duration-150 ease-out p-5 border-b border-slate-700">
+					<tr className="text-left hover:bg-slate-500/50 transition-colors duration-150 ease-out p-5 border-b border-slate-700 dark:bg-slate-700/40">
 						<th className="p-3  ">Projekto Pavadinimas</th>
 						<th className="p-3 ">Aprašymas</th>
 						<th className="p-3">Sukurta</th>
@@ -97,7 +97,7 @@ export default function ProjectTable({ projects }: ProjectTableProps) {
 								<td
 									className={`p-3 text-left ${balance < 0 ? 'text-red-500' : 'text-green-500'}`}
 								>
-									{balance}
+									{balance} €
 								</td>
 							</tr>
 						);

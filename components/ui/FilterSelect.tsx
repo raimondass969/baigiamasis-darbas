@@ -15,6 +15,7 @@ type FilterSelectProps = {
 	options: SelectOption[];
 	placeholder: string;
 	onChange: (selectId: string) => void;
+	className?: string;
 };
 
 export default function FilterSelect({
@@ -22,6 +23,7 @@ export default function FilterSelect({
 	onChange,
 	options,
 	placeholder,
+	className,
 }: FilterSelectProps) {
 	const [open, setOpen] = useState(false);
 
@@ -34,7 +36,7 @@ export default function FilterSelect({
 	return (
 		<div className="w-fit relative  ">
 			<button
-				className="flex items-center justify-between px-4 py-2 gap-2 rounded-xl border dark:border-slate-700 dark:bg-slate-800 hover:bg-slate-800   "
+				className={`"flex items-center justify-between px-4 py-2 gap-2 rounded-xl border dark:border-slate-700 dark:bg-slate-800 hover:bg-slate-800 ${className}`}
 				onClick={() => setOpen((current) => !current)}
 			>
 				<span>{selectedOption?.name ?? placeholder}</span>

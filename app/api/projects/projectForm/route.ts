@@ -1,7 +1,5 @@
-import { authOptions } from '@/lib/auth';
 import { getCurrentUser } from '@/lib/auth/getCurrentUser';
 import { prisma } from '@/lib/prisma';
-import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {

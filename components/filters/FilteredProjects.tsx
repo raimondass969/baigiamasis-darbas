@@ -3,6 +3,21 @@
 import FilterSelect, { SelectOption } from '../ui/FilterSelect';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 
+const months: SelectOption[] = [
+	{ id: '1', name: 'Sausis' },
+	{ id: '2', name: 'Vasaris' },
+	{ id: '3', name: 'Kovas' },
+	{ id: '4', name: 'Balandis' },
+	{ id: '5', name: 'Gegužė' },
+	{ id: '6', name: 'Birželis' },
+	{ id: '7', name: 'Liepa' },
+	{ id: '8', name: 'Rugpjūtis' },
+	{ id: '9', name: 'Rugsėjis' },
+	{ id: '10', name: 'Spalis' },
+	{ id: '11', name: 'Lapkritis' },
+	{ id: '12', name: 'Gruodis' },
+];
+
 type FilteredProjcetsProps = {
 	projects: SelectOption[];
 	selectedProjectId: string;
@@ -39,18 +54,17 @@ export default function FilteredProjects({
 		router.push(`${pathName}?${params.toString()}`);
 	}
 
-	function handleDateChange(value: string) {
+	function handleMonthChange(selectedMonth: string) {
 		const params = new URLSearchParams(searchParams.toString());
 
-		if (value) {
-			const [year, month] = value.split('-');
-			params.set('year', year);
-			params.set('month', month);
-			params.delete('period');
+		if (selectedMonth) {
+			params.set('year', year ?? new Date().getFullYear().toString());
+			params.set('month', selectedMonth);
+			params.set('period', 'month');
 		} else {
-			params.delete('year');
 			params.delete('month');
 		}
+
 		router.push(`${pathName}?${params.toString()}`);
 	}
 
@@ -65,7 +79,7 @@ export default function FilteredProjects({
 		router.push(`${pathName}?${params.toString()}`);
 	}
 	return (
-		<div className="mb-6 flex flex-wrap items-center gap-4">
+		<div className="mb-6 flex flex-wrap sm:flex-row items-stretch sm:items-center gap-3">
 			<FilterSelect
 				id="filterProject"
 				name="filterProject"
@@ -73,23 +87,21 @@ export default function FilteredProjects({
 				options={projects}
 				placeholder="Visi projektai"
 				onChange={handleProjectChange}
+				className="flex items-center gap-2 rounded-xl border border-slate-700 bg-slate-800 px-4 py-2 text-slate-300 transition hover:border-slate-500"
 			/>
-			<input
-				type="month"
-				className="flex items-center justify-between px-4 py-2 gap-2 rounded-xl border dark:border-slate-700 dark:bg-slate-800 hover:bg-slate-800 "
-				onChange={(e) => handleDateChange(e.target.value)}
-				value={
-					period === 'all'
-						? ''
-						: year && month
-							? `${year}-${month.padStart(2, '0')}`
-							: ''
-				}
+			<FilterSelect
+				id="filterMonth"
+				name="filterMonth"
+				value={period === 'all' ? '' : (month ?? '')}
+				options={months}
+				placeholder="Pasirinkite mėnesį"
+				onChange={handleMonthChange}
+				className="flex items-center gap-2 rounded-xl border border-slate-700 bg-slate-800 px-4 py-2 text-slate-300 transition hover:border-slate-500"
 			/>
 			<button
 				type="button"
 				onClick={handleAllPeriod}
-				className={`rounded-xl border px-4 py-2 transition dark:border-slate-700 ${
+				className={`flex items-center gap-2  rounded-xl border px-4 py-2 transition dark:border-slate-700 ${
 					period === 'all'
 						? 'bg-blue-600 text-white'
 						: 'dark:bg-slate-800 hover:bg-slate-800'
