@@ -6,7 +6,7 @@ export function getDashboardLabels(period: string) {
 			expenseTitle: 'Bendros išlaidos',
 			balanceTitle: 'Pajamų ir išlaidų skirtumas',
 			projectsTitle: 'Projektų skaičius',
-			balanceDescription: 'Gatautos pajamos minus patirtos išlaidos',
+			balanceDescription: 'Gautos pajamos minus patirtos išlaidos',
 		};
 	}
 	if (period === 'year') {
@@ -16,7 +16,7 @@ export function getDashboardLabels(period: string) {
 			expenseTitle: 'Patirtos išlaidos',
 			balanceTitle: 'Pajamų ir išlaidų skirtumas',
 			projectsTitle: 'Projektų skaičius',
-			balanceDescription: 'Gatautos pajamos minus patirtos išlaidos',
+			balanceDescription: 'Gautos pajamos minus patirtos išlaidos',
 		};
 	}
 
@@ -26,7 +26,7 @@ export function getDashboardLabels(period: string) {
 		expenseTitle: 'Patirtos išlaidos',
 		balanceTitle: 'Pajamų ir išlaidų skirtumas',
 		projectsTitle: 'Projektų skaičius',
-		balanceDescription: 'Gatautos pajamos minus patirtos išlaidos',
+		balanceDescription: 'Gautos pajamos minus patirtos išlaidos',
 		projectsDescription: 'Šio mėnesio projektai',
 	};
 }

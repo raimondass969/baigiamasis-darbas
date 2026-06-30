@@ -9,7 +9,7 @@
 		"lint": "eslint"
 	},
 	"prisma": {
-		"seed": "tsx prisma/seed.ts"
+		"seed": "tsx prisma/seed-test-user.ts"
 	},
 	"dependencies": {
 		"@hookform/resolvers": "^5.2.2",
